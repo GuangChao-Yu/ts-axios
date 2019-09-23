@@ -10,11 +10,31 @@ function formatHeadName(headers: any, formatName: string): void {
   })
 }
 
-export function processHeadres(headers: any, data: any): any {
+export function processHeaders(headers: any, data: any): any {
   formatHeadName(headers, 'Content-Type')
+
   if (isNormalObject(data)) {
     if (headers && !headers['Content-Type']) {
-      headers['Conent-Type'] = 'application/json;charset=utf-8'
+      headers['Content-Type'] = 'application/json;charset=utf-8'
     }
   }
+  return headers
+}
+
+export function parseHeaders(headers: string): any {
+  let parsed = Object.create(null)
+  if (!headers) {
+    return headers
+  }
+
+  headers.split('\r\n').forEach(line => {
+    let [key, val] = line.split(':')
+    key = key.trim().toLowerCase()
+    if (!key) return
+    if (val) {
+      val = val.trim()
+    }
+    parsed[key] = val
+  })
+  return parsed
 }

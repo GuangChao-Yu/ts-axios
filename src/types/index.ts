@@ -27,6 +27,11 @@ export interface AxiosRequestConfig {
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
   cancelToken?: CancelToken
+  withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
+  onDownloadProgress?: (e: ProgressEvent) => void
+  onUploadProgress?: (e: ProgressEvent) => void
 
   [propName: string]: any
 }
@@ -102,7 +107,7 @@ export interface CancelToken {
   promise: Promise<Cancel>
   reason?: Cancel
 
-  throwIfRequested():void
+  throwIfRequested(): void
 }
 
 export interface Canceler {
